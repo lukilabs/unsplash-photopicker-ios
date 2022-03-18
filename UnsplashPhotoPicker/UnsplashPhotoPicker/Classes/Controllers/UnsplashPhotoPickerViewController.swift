@@ -392,6 +392,10 @@ extension UnsplashPhotoPickerViewController: PagedDataSourceDelegate {
 
             return
         }
+        
+        guard !items.isEmpty else {
+            return
+        }
 
         let newPhotosCount = items.count
         let startIndex = self.dataSource.items.count - newPhotosCount
