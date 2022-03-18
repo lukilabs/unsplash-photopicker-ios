@@ -384,7 +384,7 @@ extension UnsplashPhotoPickerViewController: PagedDataSourceDelegate {
     }
 
     func dataSource(_ dataSource: PagedDataSource, didFetch items: [UnsplashPhoto]) {
-        guard !items.isEmpty else {
+        guard !dataSource.items.isEmpty else {
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
                 self.showEmptyView(with: .noResults)
