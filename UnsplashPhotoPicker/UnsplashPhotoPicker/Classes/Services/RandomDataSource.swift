@@ -14,8 +14,8 @@ public class RandomDataSource {
     
     private lazy var operationQueue = OperationQueue(with: "com.unsplash.randomDataSource")
     
-    public func fetchRandomImages(count:Int = 6, completionBlock:@escaping ([UnsplashPhoto]?,Error?) -> ()) {
-        let request = RandomUnsplashRequest(count: count)
+    public func fetchRandomImages(count:Int = 6, query: String? = nil, completionBlock:@escaping ([UnsplashPhoto]?,Error?) -> ()) {
+        let request = RandomUnsplashRequest(count: count, query: query)
         request.completionBlock = {
             if let error = request.error {
                 completionBlock(nil, error)
