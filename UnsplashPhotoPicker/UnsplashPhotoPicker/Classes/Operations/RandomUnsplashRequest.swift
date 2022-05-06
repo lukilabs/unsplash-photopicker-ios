@@ -14,9 +14,11 @@ class RandomUnsplashRequest : UnsplashRequest {
     var items = [UnsplashPhoto]()
     
     let count:Int
+    let query: String?
     
-    init(count:Int) {
+    init(count:Int, query: String? = nil) {
         self.count = count
+        self.query = query
         super.init()
     }
     
@@ -26,7 +28,8 @@ class RandomUnsplashRequest : UnsplashRequest {
     
     override func prepareParameters() -> [String: Any]? {
         return [
-            "count" : self.count
+            "count" : self.count,
+            "query" : query ?? ""
         ]
     }
     
