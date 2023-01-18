@@ -136,6 +136,14 @@ class UnsplashPhotoPickerViewController: UIViewController {
             refresh()
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.searchController.searchBar.searchTextField.becomeFirstResponder()
+        }
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
