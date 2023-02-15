@@ -12,8 +12,13 @@ class UnsplashSearchController: UISearchController {
     lazy var customSearchBar = CustomSearchBar(frame: CGRect.zero)
 
     override var searchBar: UISearchBar {
+        
         customSearchBar.showsCancelButton = false
-        customSearchBar.searchTextField.backgroundColor = .secondarySystemBackground
+        if #available(macCatalyst 15.0, *) {
+            // no need for special bg color
+        } else {
+            customSearchBar.searchTextField.backgroundColor = .secondarySystemBackground
+        }
         return customSearchBar
     }
 }
@@ -26,6 +31,10 @@ class CustomSearchBar: UISearchBar {
     public override var traitCollection: UITraitCollection {
         get {
             if #available(iOS 14.0, macCatalyst 14.0, *), super.traitCollection.userInterfaceIdiom == .mac {
+                if #available(macCatalyst 15.0, *) {
+                    return super.traitCollection
+                }
+
                 return UITraitCollection(traitsFrom: [super.traitCollection, UITraitCollection(userInterfaceIdiom: .pad)])
             }
             else {
