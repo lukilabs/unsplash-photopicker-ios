@@ -14,7 +14,7 @@ class UnsplashSearchController: UISearchController {
     override var searchBar: UISearchBar {
         
         customSearchBar.showsCancelButton = false
-        if #available(macCatalyst 15.0, *) {
+        if #available(macCatalyst 16.0, *) {
             // no need for special bg color
         } else {
             customSearchBar.searchTextField.backgroundColor = .secondarySystemBackground
@@ -31,7 +31,7 @@ class CustomSearchBar: UISearchBar {
     public override var traitCollection: UITraitCollection {
         get {
             if #available(iOS 14.0, macCatalyst 14.0, *), super.traitCollection.userInterfaceIdiom == .mac {
-                if #available(macCatalyst 15.0, *) {
+                if #available(macCatalyst 16.0, *) {
                     return super.traitCollection
                 }
 
