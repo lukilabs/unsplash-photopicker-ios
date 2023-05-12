@@ -1,0 +1,22 @@
+name: S3-backup
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  s3Backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: S3 Backup
+        uses: peter-evans/s3-backup@v1.1.0
+        env:
+          ACCESS_KEY_ID: ${{ secrets.S3_BACKUP_SERVICE_USER_ACCESS_KEY_ID }}
+          MIRROR_TARGET: luki-github-backup-bucket/${{ github.repository }}
+          SECRET_ACCESS_KEY: ${{ secrets.S3_BACKUP_SERVICE_USER_SECRET_ACCESS_KEY }}
+        with:
+          args: --overwrite --remove
