@@ -212,7 +212,9 @@ class UnsplashPhotoPickerViewController: UIViewController {
     }
 
     private func setupPeekAndPop() {
+        #if !os(visionOS)
         previewingContext = registerForPreviewing(with: self, sourceView: collectionView)
+        #endif
     }
 
     private func showEmptyView(with state: EmptyViewState) {
@@ -339,15 +341,19 @@ class UnsplashPhotoPickerViewController: UIViewController {
 extension UnsplashPhotoPickerViewController: UISearchControllerDelegate {
     func didPresentSearchController(_ searchController: UISearchController) {
         if let context = previewingContext {
+            #if !os(visionOS)
             unregisterForPreviewing(withContext: context)
             previewingContext = searchController.registerForPreviewing(with: self, sourceView: collectionView)
+            #endif
         }
     }
 
     func didDismissSearchController(_ searchController: UISearchController) {
         if let context = previewingContext {
+            #if !os(visionOS)
             searchController.unregisterForPreviewing(withContext: context)
             previewingContext = registerForPreviewing(with: self, sourceView: collectionView)
+            #endif
         }
     }
 }
@@ -441,6 +447,7 @@ extension UnsplashPhotoPickerViewController: PagedDataSourceDelegate {
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
+#if !os(visionOS)
 extension UnsplashPhotoPickerViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = collectionView.indexPathForItem(at: location),
@@ -458,3 +465,4 @@ extension UnsplashPhotoPickerViewController: UIViewControllerPreviewingDelegate 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
     }
 }
+#endif
