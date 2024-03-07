@@ -22,7 +22,6 @@ public struct UnsplashPhoto: Codable {
     public struct Links: Codable {
         var `self`: URL?
         var html: URL?
-        var alternative_html: [String: URL]?
         var download: URL?
         var download_location: URL?
     }
