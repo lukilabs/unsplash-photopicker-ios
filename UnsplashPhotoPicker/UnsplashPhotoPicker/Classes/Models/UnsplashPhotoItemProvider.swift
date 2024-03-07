@@ -56,12 +56,12 @@ extension UnsplashPhotoItemProvider: NSItemProviderWriting {
 
         case kUTTypeJPEG:
             guard let url = photo.urls[.full] else {
-                completionHandler(nil, ItemProviderError.cannotDecodeLink(key: UnsplashPhoto.LinkKind.download.rawValue, photoIdentifier: photo.identifier))
+                completionHandler(nil, ItemProviderError.cannotDecodeLink(key: "download", photoIdentifier: photo.identifier))
                 return nil
             }
 
             let dataTask = URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) in
-                if error == nil, let downloadLocationURL = self.photo.links[.downloadLocation]?.appending(queryItems: [URLQueryItem(name: "client_id", value: Configuration.shared.accessKey)]) {
+                if error == nil, let downloadLocationURL = self.photo.links.download_location?.appending(queryItems: [URLQueryItem(name: "client_id", value: Configuration.shared.accessKey)]) {
                     let pingDownloadTask = URLSession.shared.dataTask(with: downloadLocationURL)
                     pingDownloadTask.resume()
                 }

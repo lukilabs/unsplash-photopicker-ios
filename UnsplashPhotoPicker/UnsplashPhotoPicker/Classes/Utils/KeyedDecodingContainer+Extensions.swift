@@ -26,18 +26,6 @@ extension KeyedDecodingContainer {
         return result
     }
 
-    func decode(_ type: [UnsplashPhoto.LinkKind: URL].Type, forKey key: Key) throws -> [UnsplashPhoto.LinkKind: URL] {
-        let linksDictionary = try self.decode([String: String].self, forKey: key)
-        var result = [UnsplashPhoto.LinkKind: URL]()
-        for (key, value) in linksDictionary {
-            if let kind = UnsplashPhoto.LinkKind(rawValue: key),
-                let url = URL(string: value) {
-                result[kind] = url
-            }
-        }
-        return result
-    }
-
     func decode(_ type: [UnsplashUser.ProfileImageSize: URL].Type, forKey key: Key) throws -> [UnsplashUser.ProfileImageSize: URL] {
         let sizesDictionary = try self.decode([String: String].self, forKey: key)
         var result = [UnsplashUser.ProfileImageSize: URL]()
