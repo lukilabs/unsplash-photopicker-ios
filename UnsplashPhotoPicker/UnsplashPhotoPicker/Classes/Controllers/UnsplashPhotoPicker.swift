@@ -70,7 +70,7 @@ public class UnsplashPhotoPicker: UINavigationController {
 
     private func trackDownloads(for photos: [UnsplashPhoto]) {
         for photo in photos {
-            if let downloadLocationURL = photo.links[.downloadLocation]?.appending(queryItems: [URLQueryItem(name: "client_id", value: Configuration.shared.accessKey)]) {
+            if let downloadLocationURL = photo.links.download_location?.appending(queryItems: [URLQueryItem(name: "client_id", value: Configuration.shared.accessKey)]) {
                 URLSession.shared.dataTask(with: downloadLocationURL).resume()
             }
         }
