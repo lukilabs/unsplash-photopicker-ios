@@ -13,7 +13,11 @@ class PhotoView: UIView {
     static var nib: UINib { return UINib(nibName: "PhotoView", bundle: Bundle.local) }
 
     private var imageDownloader = ImageDownloader()
+    #if os(visionOS)
+    private var screenScale: CGFloat { return 2 }
+    #else
     private var screenScale: CGFloat { return UIScreen.main.scale }
+    #endif
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var gradientView: GradientView!
